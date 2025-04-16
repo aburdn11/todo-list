@@ -72,11 +72,39 @@ void TaskManager :: insertSorted(Task t) {
     }
     
  void TaskManager :: viewTasks() {
-       
+     if (taskCount == 0) {
+         cout << "There is no task to show" << endl;
+         return;
+     }
+
+     for (int i = 0; i < taskCount; i++) {
+         cout << "ID: " << tasks[i].id << (tasks[i].isDone ? " is Done " : "is Not done ")
+             << "\n" << tasks[i].title << "Priority" << tasks[i].priority
+             << "\n" << tasks[i].description << endl;
+     }
     }
 
 void TaskManager :: deleteTask() {
-        
+    int id;
+    cout << "Enter Task ID to remove : " << endl;
+    cin >> id;
+
+    bool found = false;
+    for (int i = 0; i < taskCount; ++i) {
+        if (tasks[i].id == id) {
+            for (int j = i; j < taskCount - 1; ++j)
+            {
+                tasks[j] = tasks[j + 1];
+            }
+            taskCount--;
+            found = true;
+            cout << "Task removed successfully" << endl;
+            break;
+        }
+    }
+
+    if (!found)
+        cout << "Task not found" << endl;
     }
 
 void TaskManager :: markDone() {
@@ -90,22 +118,22 @@ void TaskManager :: editTask() {
 int main() {
     TaskManager manager;
     int choice;
-
+     
     do {
-        cout << "\n📋 list of tasks:\n";
+        cout << "\n List of tasks:\n";
         cout << "1. add a Task\n";
-        //cout << "2. view a Tasks\n";
+        cout << "2. view a Tasks\n";
         //cout << "3. edit a Task\n";
-        //cout << "4. delete a Task\n";
+        cout << "4. delete a Task\n";
         //cout << "5. Mark a task as complete\n";
         cout << "0. exit\n";
         cin >> choice;
 
         switch (choice) {
             case 1: manager.addTask(); break;
-            //case 2: manager.viewTasks(); break;
+            case 2: manager.viewTasks(); break;
             //case 3: manager.editTask(); break;
-            //case 4: manager.deleteTask(); break;
+            case 4: manager.deleteTask(); break;
             //case 5: manager.markDone(); break;
             case 0: cout << "thank you\n"; break;
             default: cout << "sory Wrong entry.\n";
