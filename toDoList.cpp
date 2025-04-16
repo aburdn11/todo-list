@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
 const int MAX_TASKS = 100;
@@ -14,6 +13,7 @@ struct Task {
 
 class TaskManager {
 private:
+    static const int MAX_TASKS = 100; 
     Task tasks[MAX_TASKS];
     int taskCount;
 
@@ -25,13 +25,9 @@ public:
     }
 
     void addTask();
-
     void viewTasks();
-
     void deleteTask();
-
     void markDone();
-
     void editTask();
 };
 
@@ -108,11 +104,53 @@ void TaskManager :: deleteTask() {
     }
 
 void TaskManager :: markDone() {
-        
+         int id;
+        cout << "Enter the task number to mark it as complete";
+        cin >> id;
+
+        for (int i = 0; i < taskCount; ++i) {
+            if (tasks[i].id == id) {
+                tasks[i].isDone = true;
+                cout << "Task completed";
+                return;
+            }
+        }
+
+        cout << "Task not Found";
+
     }
 
 void TaskManager :: editTask() {
         
+        int id;
+        cout <<"Enter Task ID to edit";
+        cin >> id;
+        cin.ignore();
+
+        for (int i = 0; i < taskCount; ++i) {
+            if (tasks[i].id == id) {
+                Task updated;
+                cout << "New title  ";
+                getline(cin, updated.title);
+                cout << "New Description";
+                getline(cin, updated.description);
+                cout << "New priority ";
+                cin >> updated.priority;
+
+                updated.id = tasks[i].id;
+                updated.isDone = tasks[i].isDone;
+
+            for (int j = i; j < taskCount - 1; ++j)
+                tasks[j] = tasks[j + 1];
+            taskCount--;
+
+            insertSorted(updated);
+            cout << "Task updated successfully.\n";
+            return;
+            }
+        }
+
+        cout << "Task not found.\n";
     }
 
 int main() {
