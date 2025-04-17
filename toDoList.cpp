@@ -161,18 +161,18 @@ int main() {
         cout << "\n List of tasks:\n";
         cout << "1. add a Task\n";
         cout << "2. view a Tasks\n";
-        //cout << "3. edit a Task\n";
+        cout << "3. edit a Task\n";
         cout << "4. delete a Task\n";
-        //cout << "5. Mark a task as complete\n";
+        cout << "5. Mark a task as complete\n";
         cout << "0. exit\n";
         cin >> choice;
 
         switch (choice) {
             case 1: manager.addTask(); break;
             case 2: manager.viewTasks(); break;
-            //case 3: manager.editTask(); break;
+            case 3: manager.editTask(); break;
             case 4: manager.deleteTask(); break;
-            //case 5: manager.markDone(); break;
+            case 5: manager.markDone(); break;
             case 0: cout << "thank you\n"; break;
             default: cout << "sory Wrong entry.\n";
         }
